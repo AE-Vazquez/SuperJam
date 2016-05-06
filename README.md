@@ -1,1 +1,2 @@
 # SuperJam
+Permission test (Daventor)
