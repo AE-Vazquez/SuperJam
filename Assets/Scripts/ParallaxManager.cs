@@ -9,19 +9,15 @@ public class ParallaxManager : MonoBehaviour
 
     public float initialSpeed = 5;
 
-    public int groundCount = 3;
+    public float groundSize = 30;
 
     public float obstacleTimer;
 
     private Vector3 initialPos;
 
-    public GameObject groundPrefabs;
+    private List<Ground> groundList;
 
-    public GameObject obstaclesPrefabs;
-
-    private List<Ground> disabledGrounds;
-
-    private List<Ground> activeGrounds;
+    public List<GameObject> obstacleList;
 
     private float currentSpeed;
 
@@ -31,10 +27,9 @@ public class ParallaxManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        activeGrounds = new List<Ground>();
-        disabledGrounds = new List<Ground>();
-        int activeCount = 0;
-        activeGrounds.AddRange(GetComponentsInChildren<Ground>());
+        groundList = new List<Ground>();
+        groundList.AddRange(GetComponentsInChildren<Ground>());
+
         currentSpeed = initialSpeed;
 
         initialPos = transform.position;
@@ -45,38 +40,44 @@ public class ParallaxManager : MonoBehaviour
     void Update()
     {
 
-        currentSpeed += acceleration * Time.deltaTime;
-
-        foreach (Ground g in activeGrounds)
-        {
-            g.currentSpeed = currentSpeed;
-        }
 
     }
 
     public void GroundDisabled(Ground ground)
     {
-        ground.gameObject.transform.position = initialPos;
         ground.gameObject.SetActive(false);
 
-        activeGrounds.Remove(ground);
-        disabledGrounds.Add(ground);
         CreateNewGround();
     }
 
+    public void ObstacleDisabled(Obstacle obstacle)
+    {
+        Destroy(obstacle.gameObject);
+
+        CreateNewGround();
+    }
+
+
+
+
     void CreateNewGround()
     {
-        if(spawnObstacle)
+        if (spawnObstacle)
         {
-
+            //Instantiate
         }
-        GameObject newGround = disabledGrounds[Random.Range(0, disabledGrounds.Count)].gameObject;
-
-        newGround.SetActive(true);
-
-        newGround.GetComponent<Ground>().currentSpeed = currentSpeed;
-        activeGrounds.Add(newGround.GetComponent<Ground>());
-        disabledGrounds.Remove(newGround.GetComponent<Ground>());
+        else
+        {
+            foreach (Ground g in groundList)
+            {
+                if (!g.gameObject.activeInHierarchy)
+                {
+                    g.transform.position = initialPos;
+                    g.gameObject.SetActive(true);
+                    break;
+                }
+            }
+        }
     }
 
 
