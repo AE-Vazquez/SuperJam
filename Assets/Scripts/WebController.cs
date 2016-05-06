@@ -36,9 +36,11 @@ public class WebController : MonoBehaviour {
           if (www.error == null)
           {
                Debug.Log("WWW Ok!: " + www.data);
-//               Vector3 newPosition = JsonUtility.FromJson<Vector3> (www.data);
+               Vector2 newVelocity = JsonUtility.FromJson<Vector2> (www.data);
 //
 //               transform.position = newPosition;
+
+               GetComponent<ShipController> ().ModifyVelocity (newVelocity.x);
 
           } else {
                Debug.Log("WWW Error: "+ www.error);
