@@ -17,7 +17,14 @@ public class GroundEnd : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        manager.GroundDisabled(col.GetComponent<Ground>());
+        if (col.GetComponent<Ground>() != null)
+        {
+            manager.GroundDisabled(col.GetComponent<Ground>());
+        }
+        if(col.GetComponent<Obstacle>()!=null)
+        {
+            manager.ObstacleDisabled(col.GetComponent<Obstacle>());
+        }
 
 
     }
