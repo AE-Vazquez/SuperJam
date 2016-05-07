@@ -9,7 +9,17 @@ public class ParallaxManager : MonoBehaviour
 
     public float initialSpeed = 5;
 
+    public float currentSpeed;
+
     public float groundSize = 30;
+
+
+
+
+
+    private Vector3 initialPos;
+
+    public List<GameObject> obstaclesPrefabs;
 
     public float obstacleTimer;
 
@@ -17,20 +27,15 @@ public class ParallaxManager : MonoBehaviour
 
     public float obstacleTimerDecrease;
 
+    public List<GameObject> starsPrefabs;
+
     public float starTimer;
 
     public float starTimerBounds;
 
     public float starTimerDecrease;
 
-    private Vector3 initialPos;
 
-    public List<GameObject> obstaclesPrefabs;
-
-    public List<GameObject> starsPrefabs;
-
-    [HideInInspector]
-    public float currentSpeed;
 
     //private bool spawnObstacle = false;
     void Awake()
@@ -73,20 +78,23 @@ public class ParallaxManager : MonoBehaviour
     {
         GameObject obs = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
         obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
-        obs.GetComponent<Obstacle>().currentSpeed = currentSpeed;
-        obs.GetComponent<Obstacle>().acceleration = acceleration;
+        obs.GetComponent<Obstacle>().manager = this;
         Invoke("SpawnObstacle", Random.Range(obstacleTimer-obstacleTimerBounds, obstacleTimer + obstacleTimerBounds));
         obstacleTimer -= obstacleTimerDecrease;
     }
 
     void SpawnStars()
     {
-        GameObject obs = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
-        obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
-        obs.GetComponent<Star>().currentSpeed = currentSpeed;
-        obs.GetComponent<Star>().acceleration = acceleration;
+        GameObject star = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
+        star = Instantiate(star, initialPos, Quaternion.identity) as GameObject;
+        star.GetComponent<Star>().manager = this;
         Invoke("SpawnStars", Random.Range(starTimer - starTimerBounds, starTimer + starTimerBounds));
         starTimer -= starTimerDecrease;
+    }
+
+    public void ChangeSpeed(float change)
+    {
+        currentSpeed += change;
     }
 
 
