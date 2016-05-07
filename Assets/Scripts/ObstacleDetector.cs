@@ -15,7 +15,6 @@ public class ObstacleDetector : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Entra");
         if (col.gameObject.CompareTag("Ship"))
         {
             ShipBase shipBase = col.GetComponent<ShipBase>();
