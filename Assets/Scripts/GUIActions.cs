@@ -12,6 +12,10 @@ public class GUIActions : MonoBehaviour {
           SceneManager.LoadScene ("NormalGame");
      }
 
+     public void GoToVRAlert(){
+          SceneManager.LoadScene ("VRAlert");
+     }
+
      public void GoToVRGame(){
           SceneManager.LoadScene ("VRGame");
      }
@@ -35,7 +39,7 @@ public class GUIActions : MonoBehaviour {
 
      public void ExitGame(){
           Application.Quit ();
-          UnityEditor.EditorApplication.isPlaying = false;
+          //UnityEditor.EditorApplication.isPlaying = false;
      }
 
      public void OpenMenuPanel(){
