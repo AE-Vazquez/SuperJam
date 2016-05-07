@@ -19,6 +19,7 @@ public class GroundEnd : MonoBehaviour {
     {
         if (col.GetComponent<Ground>() != null)
         {
+            col.GetComponent<Ground>().ResetPosition();
             manager.GroundDisabled(col.GetComponent<Ground>());
         }
         else
