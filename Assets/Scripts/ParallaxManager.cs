@@ -13,73 +13,81 @@ public class ParallaxManager : MonoBehaviour
 
     public float obstacleTimer;
 
+    public float obstacleTimerBounds;
+
+    public float obstacleTimerDecrease;
+
+    public float starTimer;
+
+    public float starTimerBounds;
+
+    public float starTimerDecrease;
+
     private Vector3 initialPos;
 
-    private List<Ground> groundList;
+    public List<GameObject> obstaclesPrefabs;
 
-    public List<GameObject> obstacleList;
+    public List<GameObject> starsPrefabs;
 
-    private float currentSpeed;
+    [HideInInspector]
+    public float currentSpeed;
 
-    private bool spawnObstacle = false;
+    //private bool spawnObstacle = false;
+    void Awake()
+    {
+        currentSpeed = initialSpeed;
 
+        initialPos = transform.Find("GroundStart").position;
+    }
 
     // Use this for initialization
     void Start()
     {
-        groundList = new List<Ground>();
-        groundList.AddRange(GetComponentsInChildren<Ground>());
 
-        currentSpeed = initialSpeed;
-
-        initialPos = transform.position;
+        Invoke("SpawnObstacle", obstacleTimer);
+        Invoke("SpawnStars", starTimer);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        currentSpeed += acceleration * Time.deltaTime;
 
     }
 
     public void GroundDisabled(Ground ground)
     {
-        ground.gameObject.SetActive(false);
 
-        CreateNewGround();
+        ground.transform.position = initialPos;
+
     }
 
     public void ObstacleDisabled(Obstacle obstacle)
     {
         Destroy(obstacle.gameObject);
 
-        CreateNewGround();
     }
 
-
-
-
-    void CreateNewGround()
+    void SpawnObstacle()
     {
-        if (spawnObstacle)
-        {
-            //Instantiate
-        }
-        else
-        {
-            foreach (Ground g in groundList)
-            {
-                if (!g.gameObject.activeInHierarchy)
-                {
-                    g.transform.position = initialPos;
-                    g.gameObject.SetActive(true);
-                    break;
-                }
-            }
-        }
+        GameObject obs = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
+        obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
+        obs.GetComponent<Obstacle>().currentSpeed = currentSpeed;
+        obs.GetComponent<Obstacle>().acceleration = acceleration;
+        Invoke("SpawnObstacle", Random.Range(obstacleTimer-obstacleTimerBounds, obstacleTimer + obstacleTimerBounds));
+        obstacleTimer -= obstacleTimerDecrease;
     }
 
+    void SpawnStars()
+    {
+        GameObject obs = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
+        obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
+        obs.GetComponent<Star>().currentSpeed = currentSpeed;
+        obs.GetComponent<Star>().acceleration = acceleration;
+        Invoke("SpawnStars", Random.Range(starTimer - starTimerBounds, starTimer + starTimerBounds));
+        starTimer -= starTimerDecrease;
+    }
 
 
 }

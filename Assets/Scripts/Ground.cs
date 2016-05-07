@@ -10,9 +10,14 @@ public class Ground : MonoBehaviour {
 
     [HideInInspector]
     public float acceleration = 1;
+
+    public float size = 40;
+
+    public Transform previousGround;
 	// Use this for initialization
 	void Start () {
         acceleration = GetComponentInParent<ParallaxManager>().acceleration;
+        currentSpeed = GetComponentInParent<ParallaxManager>().currentSpeed;
         direction = new Vector3(0, 0, -1);
 
 	}
@@ -23,10 +28,9 @@ public class Ground : MonoBehaviour {
         transform.Translate(direction * currentSpeed * Time.deltaTime);
 	}
 
-    void OnEnable()
+    public void ResetPosition()
     {
-        transform.Translate(direction * currentSpeed * Time.deltaTime);
+        transform.position = previousGround.transform.position + new Vector3(0, 0, size);
     }
-
     
 }
