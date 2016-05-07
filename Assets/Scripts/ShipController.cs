@@ -38,6 +38,12 @@ public class ShipController : MonoBehaviour {
             MoveRight(1);    
         }
 
+          if (Input.acceleration.x < 0) {
+               MoveLeft(1);
+          } else if (Input.acceleration.x > 0){
+               MoveRight(1);
+          }
+
         currentSpeed = rigidBody.velocity.x;
         rigidBody.rotation = Quaternion.Euler(0, 0, currentSpeed * -rotationStep);
 
