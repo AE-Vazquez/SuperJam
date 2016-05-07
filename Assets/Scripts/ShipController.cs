@@ -48,7 +48,7 @@ public class ShipController : MonoBehaviour {
     {
         if (rigidBody.velocity.x > -maxSpeed)
         {
-            rigidBody.velocity -= constrainedVelocity * acceleration*force;
+            rigidBody.velocity -= constrainedVelocity * acceleration * force;
             currentSpeed -= acceleration;
         }
 
@@ -59,7 +59,7 @@ public class ShipController : MonoBehaviour {
     {
         if (rigidBody.velocity.x < maxSpeed)
         {
-            rigidBody.velocity += constrainedVelocity * acceleration*force;
+            rigidBody.velocity += constrainedVelocity * acceleration * force;
         }
 
     }
@@ -68,11 +68,11 @@ public class ShipController : MonoBehaviour {
     {
         if(modifier>0)
         {
-            MoveRight(modifier);
+               MoveLeft(Mathf.Abs(modifier));
         }
         else if(modifier<0)
         {
-            MoveRight(-modifier);
+               MoveRight(Mathf.Abs(modifier));
         }
     }
 

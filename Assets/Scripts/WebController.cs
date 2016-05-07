@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WebController : MonoBehaviour {
+public class WebController : MonoBehaviour {     
      public string url = "http://www.costacar.com/unityTest.php";
 
      private bool loading = false;
-     public float lastPost;
+     public float lastSpeed = 0;
 
      // Use this for initialization
      void Start () {          
@@ -17,6 +17,8 @@ public class WebController : MonoBehaviour {
           if (!loading) {               
                GetWeb ();
           }
+
+          GetComponent<ShipController> ().ModifyVelocity (lastSpeed);
      }
 
      public void GetWeb(){
@@ -36,15 +38,19 @@ public class WebController : MonoBehaviour {
           if (www.error == null)
           {
                Debug.Log("WWW Ok!: " + www.data);
-//               Vector3 newPosition = JsonUtility.FromJson<Vector3> (www.data);
-//
-//               transform.position = newPosition;
+               Vector2 newVelocity = JsonUtility.FromJson<Vector2> (www.data);
+
+               if (newVelocity.x > 0) {
+                    lastSpeed = 1;
+               }else if(newVelocity.x < 0){
+                    lastSpeed = -1;
+               }
+               //GetComponent<ShipController> ().ModifyVelocity (newVelocity.x);
 
           } else {
                Debug.Log("WWW Error: "+ www.error);
           }
 
-          loading = false;
-          lastPost = Time.time;
+          loading = false;       
      }   
 }
