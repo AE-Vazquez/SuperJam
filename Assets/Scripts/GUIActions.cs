@@ -12,6 +12,10 @@ public class GUIActions : MonoBehaviour {
           SceneManager.LoadScene ("NormalGame");
      }
 
+     public void GoToVRAlert(){
+          SceneManager.LoadScene ("VRAlert");
+     }
+
      public void GoToVRGame(){
           SceneManager.LoadScene ("VRGame");
      }
