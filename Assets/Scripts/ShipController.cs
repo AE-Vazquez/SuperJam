@@ -50,6 +50,12 @@ public class ShipController : MonoBehaviour {
             shipBase.ActivateBoost();
         }
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            shipBase.ActivateBoost(); ;
+        }
+
+
           if (Input.acceleration.x < 0) {
                MoveLeft(1);
           } else if (Input.acceleration.x > 0){
