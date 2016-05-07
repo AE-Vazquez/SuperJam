@@ -14,9 +14,6 @@ public class ParallaxManager : MonoBehaviour
     public float groundSize = 30;
 
 
-
-
-
     private Vector3 initialPos;
 
     public List<GameObject> obstaclesPrefabs;
@@ -27,6 +24,8 @@ public class ParallaxManager : MonoBehaviour
 
     public float obstacleTimerDecrease;
 
+    public float minObstacleTimer=3;
+
     public List<GameObject> starsPrefabs;
 
     public float starTimer;
@@ -34,6 +33,8 @@ public class ParallaxManager : MonoBehaviour
     public float starTimerBounds;
 
     public float starTimerDecrease;
+
+    public float minStarTimer=2;
 
 
 
@@ -76,20 +77,34 @@ public class ParallaxManager : MonoBehaviour
 
     void SpawnObstacle()
     {
+        Vector3 obsPosition = initialPos;
+        obsPosition.y += 1;
+        obsPosition.x += Random.Range(-25, 25);
+
         GameObject obs = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
         obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
         obs.GetComponent<Obstacle>().manager = this;
         Invoke("SpawnObstacle", Random.Range(obstacleTimer-obstacleTimerBounds, obstacleTimer + obstacleTimerBounds));
-        obstacleTimer -= obstacleTimerDecrease;
+        if (obstacleTimer > minObstacleTimer)
+        {
+            obstacleTimer -= obstacleTimerDecrease;
+        }
+        
     }
 
     void SpawnStars()
     {
+        Vector3 starPosition = initialPos;
+        starPosition.x += Random.Range(-20, 20);
         GameObject star = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
-        star = Instantiate(star, initialPos, Quaternion.identity) as GameObject;
+        star = Instantiate(star, starPosition, Quaternion.identity) as GameObject;
+        
         star.GetComponent<Star>().manager = this;
         Invoke("SpawnStars", Random.Range(starTimer - starTimerBounds, starTimer + starTimerBounds));
-        starTimer -= starTimerDecrease;
+        if (starTimer > minStarTimer)
+        {
+            starTimer -= starTimerDecrease;
+        }
     }
 
     public void ChangeSpeed(float change)

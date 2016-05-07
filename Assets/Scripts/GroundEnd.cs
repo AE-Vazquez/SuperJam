@@ -4,9 +4,11 @@ using System.Collections;
 public class GroundEnd : MonoBehaviour {
 
     private ParallaxManager manager;
+    ShipBase shipBase;
            
     // Use this for initialization
     void Start () {
+        shipBase = GameObject.Find("Ship").GetComponent<ShipBase>();
         manager = GetComponentInParent<ParallaxManager>();
     }
 	
@@ -20,6 +22,7 @@ public class GroundEnd : MonoBehaviour {
         
         if (col.GetComponent<Ground>() != null)
         {
+            shipBase.points++;
             col.GetComponent<Ground>().ResetPosition();
             
         }

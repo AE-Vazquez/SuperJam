@@ -27,6 +27,10 @@ public class ShipBase : MonoBehaviour {
     public GameObject parallaxManager;
     private ParallaxManager manager;
 
+    public Vector3 shakeAmount= new Vector3(2,1,0);
+
+    public float shakeTime = 2;
+
 
     // Use this for initialization
     void Start () {
@@ -54,6 +58,8 @@ public class ShipBase : MonoBehaviour {
             }
             else
             {
+                
+                iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
                 StartInvulTime();
             }
         }
