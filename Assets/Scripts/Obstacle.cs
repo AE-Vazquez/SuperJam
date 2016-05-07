@@ -17,7 +17,10 @@ public class Obstacle : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
+        if (manager != null)
+        {
+            transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
+        }
     }
 
     public float GetCurrentSpeed()

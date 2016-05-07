@@ -78,11 +78,11 @@ public class ParallaxManager : MonoBehaviour
     void SpawnObstacle()
     {
         Vector3 obsPosition = initialPos;
-        obsPosition.y += 1;
+        //obsPosition.y += 1;
         obsPosition.x += Random.Range(-25, 25);
 
         GameObject obs = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
-        obs = Instantiate(obs, initialPos, Quaternion.identity) as GameObject;
+        obs = Instantiate(obs, obsPosition, Quaternion.identity) as GameObject;
         obs.GetComponent<Obstacle>().manager = this;
         Invoke("SpawnObstacle", Random.Range(obstacleTimer-obstacleTimerBounds, obstacleTimer + obstacleTimerBounds));
         if (obstacleTimer > minObstacleTimer)
