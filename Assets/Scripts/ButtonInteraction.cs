@@ -20,6 +20,7 @@ public class ButtonInteraction : MonoBehaviour {
 
      public void SetClick(){
           Debug.Log ("Clicked");
+          Handheld.Vibrate();
      }
 
      #region ICardboardGazeResponder implementation
