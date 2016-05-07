@@ -17,22 +17,24 @@ public class GroundEnd : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        
         if (col.GetComponent<Ground>() != null)
         {
             col.GetComponent<Ground>().ResetPosition();
-            manager.GroundDisabled(col.GetComponent<Ground>());
+            
         }
         else
         {
-            Destroy(col.gameObject);
+            if (col.transform.parent != null)
+            {
+                Destroy(col.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(col.gameObject);
+            }
         }
 
-        /*
-        if(col.GetComponentInParent<Obstacle>()!=null)
-        {
-            manager.ObstacleDisabled(col.GetComponentInParent<Obstacle>());
-        }
-        */
 
     }
 }

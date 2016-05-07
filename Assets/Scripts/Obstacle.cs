@@ -4,15 +4,12 @@ using System.Collections;
 public class Obstacle : MonoBehaviour {
 
     private Vector3 direction;
-    [HideInInspector]
-    public float currentSpeed = 20;
 
     [HideInInspector]
-    public float acceleration = 1;
+    public ParallaxManager manager;
 
     void Start()
     {
-
         direction = new Vector3(0, 0, -1);
 
     }
@@ -20,7 +17,14 @@ public class Obstacle : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        currentSpeed += acceleration * Time.deltaTime;
-        transform.Translate(direction * currentSpeed * Time.deltaTime);
+        transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
     }
+
+    public float GetCurrentSpeed()
+    {
+        return manager.currentSpeed;
+    }
+
+   
+
 }
