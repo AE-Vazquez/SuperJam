@@ -8,8 +8,14 @@ public class GUIActions : MonoBehaviour {
           SceneManager.LoadScene ("Credits");
      }
 
+     public void GoToColaborativeGame(){
+          PlayerPrefs.SetString("gameMode" , "COLABORATIVE");
+          SceneManager.LoadScene ("VRGame");
+     }
+
      public void GoToNormalGame(){
-          SceneManager.LoadScene ("NormalGame");
+          PlayerPrefs.SetString("gameMode" , "NORMAL");
+          SceneManager.LoadScene ("VRGame");
      }
 
      public void GoToVRAlert(){
@@ -17,7 +23,8 @@ public class GUIActions : MonoBehaviour {
      }
 
      public void GoToVRGame(){
-          SceneManager.LoadScene ("game");
+          PlayerPrefs.SetString("gameMode" , "VR");
+          SceneManager.LoadScene ("VRGame");
      }
 
      public void GoToMainMenu(){
