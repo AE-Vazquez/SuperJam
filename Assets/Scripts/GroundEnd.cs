@@ -21,11 +21,17 @@ public class GroundEnd : MonoBehaviour {
         {
             manager.GroundDisabled(col.GetComponent<Ground>());
         }
-        if(col.GetComponent<Obstacle>()!=null)
+        else
         {
-            manager.ObstacleDisabled(col.GetComponent<Obstacle>());
+            Destroy(col.gameObject);
         }
 
+        /*
+        if(col.GetComponentInParent<Obstacle>()!=null)
+        {
+            manager.ObstacleDisabled(col.GetComponentInParent<Obstacle>());
+        }
+        */
 
     }
 }

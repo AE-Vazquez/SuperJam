@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Obstacle : MonoBehaviour {
+public class Star : MonoBehaviour {
 
-    private Vector3 direction;
+
+    public float pointReward;
+
+    public float energyReward;
+
     [HideInInspector]
     public float currentSpeed = 20;
 
     [HideInInspector]
     public float acceleration = 1;
+
+    private Vector3 direction;
 
     void Start()
     {
@@ -21,6 +27,11 @@ public class Obstacle : MonoBehaviour {
     void Update()
     {
         currentSpeed += acceleration * Time.deltaTime;
-        transform.Translate(direction * currentSpeed * Time.deltaTime);
+        transform.Translate(direction * currentSpeed * Time.deltaTime,Space.World);
+    }
+
+    public void DestroyStar()
+    {
+        Destroy(gameObject);
     }
 }

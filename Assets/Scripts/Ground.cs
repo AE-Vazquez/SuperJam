@@ -13,6 +13,7 @@ public class Ground : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         acceleration = GetComponentInParent<ParallaxManager>().acceleration;
+        currentSpeed = GetComponentInParent<ParallaxManager>().currentSpeed;
         direction = new Vector3(0, 0, -1);
 
 	}
@@ -25,6 +26,7 @@ public class Ground : MonoBehaviour {
 
     void OnEnable()
     {
+        currentSpeed = GetComponentInParent<ParallaxManager>().currentSpeed;
         transform.Translate(direction * currentSpeed * Time.deltaTime);
     }
 
