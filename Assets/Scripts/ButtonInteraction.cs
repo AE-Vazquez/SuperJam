@@ -18,9 +18,9 @@ public class ButtonInteraction : MonoBehaviour {
           GetComponent<Renderer>().material.color = gazedAt ? Color.green : Color.red;
      }
 
-     public void SetClick(){
-          Debug.Log ("Clicked");
+     public void SetClick(){                    
           Handheld.Vibrate();
+
      }
 
      #region ICardboardGazeResponder implementation
@@ -40,7 +40,9 @@ public class ButtonInteraction : MonoBehaviour {
      // Called when the Cardboard trigger is used, between OnGazeEnter
      /// and OnGazeExit.
      public void OnGazeTrigger() {
-          Debug.Log ("Clicked");
+          Vibration.Vibrate ();
+          Debug.Log ("Clicked _ ..");
+
      }
 
      #endregion
