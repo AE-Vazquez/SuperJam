@@ -37,8 +37,8 @@ public class WebController : MonoBehaviour {
           // check for errors
           if (www.error == null)
           {
-               Debug.Log("WWW Ok!: " + www.data);
-               Vector2 newVelocity = JsonUtility.FromJson<Vector2> (www.data);
+               Debug.Log("WWW Ok!: " + www.text);
+               Vector2 newVelocity = JsonUtility.FromJson<Vector2> (www.text);
 
                if (newVelocity.x > 0) {
                     lastSpeed = 1;
