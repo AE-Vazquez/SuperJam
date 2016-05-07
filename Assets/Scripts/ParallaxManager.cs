@@ -36,6 +36,7 @@ public class ParallaxManager : MonoBehaviour
 
     public float minStarTimer=2;
 
+    public bool menu=false;
 
 
     //private bool spawnObstacle = false;
@@ -49,9 +50,16 @@ public class ParallaxManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        Invoke("SpawnObstacle", obstacleTimer);
-        Invoke("SpawnStars", starTimer);
+        
+        if (!menu)
+        {
+            Invoke("SpawnObstacle", obstacleTimer);
+            Invoke("SpawnStars", starTimer);
+        }
+        else
+        {
+            acceleration = 0;
+        }
 
     }
 
@@ -78,7 +86,7 @@ public class ParallaxManager : MonoBehaviour
     void SpawnObstacle()
     {
         Vector3 obsPosition = initialPos;
-        //obsPosition.y += 1;
+        obsPosition.y += 1;
         obsPosition.x += Random.Range(-25, 25);
 
         GameObject obs = obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Count)];
@@ -96,6 +104,8 @@ public class ParallaxManager : MonoBehaviour
     {
         Vector3 starPosition = initialPos;
         starPosition.x += Random.Range(-20, 20);
+        starPosition.y += 1;
+        starPosition.y += Random.Range(-0.3f, 0.3f);
         GameObject star = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
         star = Instantiate(star, starPosition, Quaternion.identity) as GameObject;
         
@@ -110,6 +120,12 @@ public class ParallaxManager : MonoBehaviour
     public void ChangeSpeed(float change)
     {
         currentSpeed += change;
+    }
+
+    public void StopGame()
+    {
+        acceleration = 0;
+        CancelInvoke();
     }
 
 

@@ -67,9 +67,12 @@ public class ShipBase : MonoBehaviour {
 
     public void DestroyShip()
     {
-        Destroy(gameObject);
-
         //Instanciar partculas explosion
+        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Renderer>().enabled = false;
+        this.enabled = false;
+        manager.StopGame();
+
     }
 
     public void StartInvulTime()
@@ -93,6 +96,8 @@ public class ShipBase : MonoBehaviour {
     {
         if (!boosted && currentEnergy == maxEnergy)
         {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
             boosted = true;
             manager.ChangeSpeed(boostSpeed);
             StartCoroutine(BoostConsumer());
