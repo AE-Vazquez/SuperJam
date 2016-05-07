@@ -10,6 +10,7 @@ public class ShipController : MonoBehaviour {
 
     public float acceleration;
     public float rotationStep;
+    public bool noRotate = false;
 
     private float currentSpeed;
     private float currentRot;
@@ -45,7 +46,7 @@ public class ShipController : MonoBehaviour {
           }
 
         currentSpeed = rigidBody.velocity.x;
-        rigidBody.rotation = Quaternion.Euler(0, 0, currentSpeed * -rotationStep);
+        if(!noRotate) rigidBody.rotation = Quaternion.Euler(0, 0, currentSpeed * -rotationStep);
 
 	}
 
