@@ -17,7 +17,7 @@ public class GUIActions : MonoBehaviour {
      }
 
      public void GoToVRGame(){
-          SceneManager.LoadScene ("VRGame");
+          SceneManager.LoadScene ("game");
      }
 
      public void GoToMainMenu(){
