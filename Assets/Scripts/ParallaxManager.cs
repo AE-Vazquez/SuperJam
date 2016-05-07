@@ -13,7 +13,6 @@ public class ParallaxManager : MonoBehaviour
 
     public float groundSize = 30;
 
-
     private Vector3 initialPos;
 
     public List<GameObject> obstaclesPrefabs;
@@ -43,8 +42,9 @@ public class ParallaxManager : MonoBehaviour
     void Awake()
     {
         currentSpeed = initialSpeed;
-
+        
         initialPos = transform.Find("GroundStart").position;
+
     }
 
     // Use this for initialization
@@ -108,8 +108,18 @@ public class ParallaxManager : MonoBehaviour
         starPosition.y += Random.Range(-0.1f, 0.3f);
         GameObject star = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
         star = Instantiate(star, starPosition, Quaternion.identity) as GameObject;
-        
-        star.GetComponent<Star>().manager = this;
+
+        if (star.transform.childCount > 0)
+        {
+            foreach(Star s in star.GetComponentsInChildren<Star>())
+            {
+                s.manager = this;
+            }
+        }
+        else
+        {
+            star.GetComponent<Star>().manager = this;
+        }
         Invoke("SpawnStars", Random.Range(starTimer - starTimerBounds, starTimer + starTimerBounds));
         if (starTimer > minStarTimer)
         {
