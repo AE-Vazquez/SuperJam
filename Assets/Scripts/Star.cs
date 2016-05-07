@@ -8,17 +8,13 @@ public class Star : MonoBehaviour {
 
     public float energyReward;
 
-    [HideInInspector]
-    public float currentSpeed = 20;
-
-    [HideInInspector]
-    public float acceleration = 1;
-
     private Vector3 direction;
+
+    [HideInInspector]
+    public ParallaxManager manager;
 
     void Start()
     {
-
         direction = new Vector3(0, 0, -1);
 
     }
@@ -26,12 +22,13 @@ public class Star : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        currentSpeed += acceleration * Time.deltaTime;
-        transform.Translate(direction * currentSpeed * Time.deltaTime,Space.World);
+        transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
     }
 
     public void DestroyStar()
     {
         Destroy(gameObject);
     }
+
+
 }

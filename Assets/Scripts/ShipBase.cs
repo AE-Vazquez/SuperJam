@@ -18,10 +18,19 @@ public class ShipBase : MonoBehaviour {
    
     public bool invulnerable = false;
 
+    public bool boosted = false;
+
+    public float boostDuration = 5;
+
+    public float boostSpeed = 10;
+
+    public GameObject parallaxManager;
+    private ParallaxManager manager;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        manager = parallaxManager.GetComponent<ParallaxManager>();
         currentLives = maxLives;
         points = 0;
 	
@@ -29,11 +38,12 @@ public class ShipBase : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
     public void TakeHit()
     {
+        
         if (!invulnerable)
         {
             currentLives--;
@@ -71,6 +81,39 @@ public class ShipBase : MonoBehaviour {
             currentEnergy = maxEnergy;
         }
 
+    }
+
+    public void ActivateBoost()
+    {
+        if (!boosted && currentEnergy == maxEnergy)
+        {
+            boosted = true;
+            manager.ChangeSpeed(boostSpeed);
+            StartCoroutine(BoostConsumer());
+        }
+    }
+
+    public IEnumerator BoostConsumer()
+    {
+        float t = 0;
+        while (currentEnergy>0)
+        {
+            t += Time.deltaTime / boostDuration;
+            currentEnergy = Mathf.Lerp(maxEnergy, 0, t);
+            yield return 0;
+        }
+        DeactivateBoost();
+        yield return 0;
+    }
+
+    public void DeactivateBoost()
+    {
+        
+        if (boosted)
+        {
+            boosted = false;
+            manager.ChangeSpeed(-boostSpeed);
+        }
     }
 
 }

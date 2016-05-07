@@ -17,11 +17,17 @@ public class ShipController : MonoBehaviour {
     private Vector3 constraintedRotation;
 
     private Rigidbody rigidBody;
+
+    private ShipBase shipBase;
+
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
         constrainedVelocity = new Vector3(1, 0, 0);
         constraintedRotation = new Vector3(0, 0, 1);
+
+        shipBase = GetComponent<ShipBase>();
+
 
     }
 	
@@ -36,6 +42,11 @@ public class ShipController : MonoBehaviour {
         else if(Input.GetKey(KeyCode.D))
         {
             MoveRight(1);    
+        }
+
+        if(Input.GetKey(KeyCode.Space))
+        {
+            shipBase.ActivateBoost();
         }
 
           if (Input.acceleration.x < 0) {
@@ -80,11 +91,6 @@ public class ShipController : MonoBehaviour {
         {
                MoveRight(Mathf.Abs(modifier));
         }
-    }
-
-    public void ActivateBoost()
-    {
-
     }
 
 }
