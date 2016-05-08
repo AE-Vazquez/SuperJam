@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour {
 
-
+    // Subete al puto repo
     public GameObject[] insideLives;
     public GameObject[] outsideLives;
 
