@@ -8,8 +8,8 @@ public class HUDManager : MonoBehaviour {
     public GameObject[] insideLives;
     public GameObject[] outsideLives;
 
-    public GUIText insidePoints;
-    public GUIText outsidePoints;
+    public Text insidePoints;
+    public Text outsidePoints;
 
     public Image insideBoosterImage;
     public Image outsideBoosterImage;
@@ -19,12 +19,23 @@ public class HUDManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        insidePoints.text = "0";
-        outsidePoints.text = "0";
+        if (insidePoints != null)
+            insidePoints.text = "0";
+        if (outsidePoints != null)
+            outsidePoints.text = "0";
         if (PlayerPrefs.GetString("gameMode").Equals("VR"))
         {
             outsideCanvas.gameObject.SetActive(false);
         }
+        else
+        {
+            foreach(GameObject go in outsideLives)
+            {
+                Destroy(go);
+            }
+
+        }
+
     }
 	
 	// Update is called once per frame
@@ -34,40 +45,39 @@ public class HUDManager : MonoBehaviour {
 
     public void UpdateLives(int amount)
     {
+        if(insideLives.Length>amount && insideLives[amount]!=null)
         Destroy(insideLives[amount]);
-        Destroy(outsideLives[amount]);
+        if (outsideLives.Length > amount && outsideLives[amount] != null)
+            Destroy(outsideLives[amount]);
     }
 
     public void UpdatePoints(int amount)
     {
+        if(insidePoints!=null)
         insidePoints.text = amount.ToString();
-        outsidePoints.text = amount.ToString();
+        if (outsidePoints != null)
+            outsidePoints.text = amount.ToString();
     }
 
     public void UpdateBooster(float amount)
     {
-        
-        insideBoosterImage.fillAmount = amount;
-        outsideBoosterImage.fillAmount = amount;
-        if(amount<25)
+        if (insideBoosterImage != null)
+            insideBoosterImage.fillAmount = amount;
+        if (outsideBoosterImage != null)
+            outsideBoosterImage.fillAmount = amount;
+        if(amount<1)
         {
-            insideBoosterImage.color = Color.green;
-            outsideBoosterImage.color = Color.green;
-        }
-        else if(amount<75)
-        {
-            insideBoosterImage.color = Color.yellow;
-            outsideBoosterImage.color = Color.yellow;
-        }
-        else if(amount<100)
-        {
-            insideBoosterImage.color = Color.red;
-            outsideBoosterImage.color = Color.red;
+            if (insideBoosterImage != null)
+                insideBoosterImage.color = Color.yellow;
+            if (outsideBoosterImage != null)
+                outsideBoosterImage.color = Color.yellow;
         }
         else
         {
-            insideBoosterImage.color = Color.magenta;
-            outsideBoosterImage.color = Color.magenta;
+            if (insideBoosterImage != null)
+                insideBoosterImage.color = Color.green;
+            if (outsideBoosterImage != null)
+                outsideBoosterImage.color = Color.green;
         }
     }
 

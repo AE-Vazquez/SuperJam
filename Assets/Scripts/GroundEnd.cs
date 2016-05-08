@@ -22,7 +22,7 @@ public class GroundEnd : MonoBehaviour {
         
         if (col.GetComponent<Ground>() != null)
         {
-            if (!shipBase.dead)
+            if (!shipBase.dead && !manager.menu)
             {
                 shipBase.points++;
                 shipBase.hudManager.UpdatePoints((int)shipBase.points);

@@ -62,7 +62,7 @@ public class ShipBase : MonoBehaviour {
     public void TakeHit()
     {
         
-        if (!invulnerable)
+        if (!invulnerable && !dead)
         {
             currentLives--;
             hudManager.UpdateLives((int)currentLives);
@@ -92,6 +92,10 @@ public class ShipBase : MonoBehaviour {
         {
             gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
         }
+        if (gameObject.transform.Find("nave") != null)
+        {
+            gameObject.transform.Find("nave").GetComponent<Renderer>().enabled = false;
+        }
         dead = true;
         
         manager.StopGame();
@@ -111,7 +115,7 @@ public class ShipBase : MonoBehaviour {
             points += star.pointReward;
             hudManager.UpdatePoints((int)points);
             currentEnergy += star.energyReward;
-            hudManager.UpdateBooster(currentEnergy);
+            hudManager.UpdateBooster(currentEnergy/100);
             if (currentEnergy > maxEnergy)
             {
                 currentEnergy = maxEnergy;
@@ -139,7 +143,7 @@ public class ShipBase : MonoBehaviour {
         {
             t += Time.deltaTime / boostDuration;
             currentEnergy = Mathf.Lerp(maxEnergy, 0, t);
-            hudManager.UpdateBooster(currentEnergy);
+            hudManager.UpdateBooster(currentEnergy/100);
             yield return 0;
         }
         DeactivateBoost();

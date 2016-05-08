@@ -63,7 +63,7 @@ public class ShipController : MonoBehaviour {
           }
 
         currentSpeed = rigidBody.velocity.x;
-        if (!noRotate && currentSpeed < maxSpeed-0.1f)
+        if (!noRotate)
         {
             
             rigidBody.rotation = Quaternion.Euler(0, 0, currentSpeed * -rotationStep);
