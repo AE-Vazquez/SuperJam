@@ -108,7 +108,7 @@ public class ParallaxManager : MonoBehaviour
         Vector3 starPosition = initialPos;
         starPosition.x += Random.Range(-20, 20);
         starPosition.y += 5;
-        starPosition.y += Random.Range(-0.1f, 0.3f);
+        //starPosition.y += Random.Range(-0.1f, 0.3f);
         GameObject star = starsPrefabs[Random.Range(0, starsPrefabs.Count)];
         star = Instantiate(star, starPosition, Quaternion.identity) as GameObject;
 

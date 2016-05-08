@@ -15,8 +15,9 @@ public class ButtonInteraction : MonoBehaviour {
                gameObject.transform.parent.GetComponent<MeshRenderer> ().enabled = true;
                GetComponent<MeshRenderer> ().enabled = false;
                transform.parent = null;
-               transform.position = new Vector3 (30.96f, 48.9f, 0.81f);
-               CardboardHead cHead = GetComponentInChildren<CardboardHead> ();
+            //transform.position = new Vector3 (30.96f, 48.9f, 0.81f);
+            transform.position = new Vector3(30.96f, 15.4f, 76.5f);
+            CardboardHead cHead = GetComponentInChildren<CardboardHead> ();
                cHead.trackPosition = false;
                cHead.trackRotation = false;
                cHead.transform.rotation = Quaternion.Euler (new Vector3 (16.3f,0,0));

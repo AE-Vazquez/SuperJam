@@ -29,10 +29,15 @@ public class HUDManager : MonoBehaviour {
         }
         else
         {
-            foreach(GameObject go in outsideLives)
+            foreach(GameObject go in insideLives)
             {
                 Destroy(go);
+
             }
+            if(insidePoints!=null)
+                insidePoints.enabled = false;
+            if (insideBoosterImage != null)
+                insideBoosterImage.enabled = false;
 
         }
 
