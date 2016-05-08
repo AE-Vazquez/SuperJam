@@ -41,9 +41,9 @@ public class WebController : MonoBehaviour {
                Vector2 newVelocity = JsonUtility.FromJson<Vector2> (www.text);
 
                if (newVelocity.x > 0) {
-                    lastSpeed = 1;
-               }else if(newVelocity.x < 0){
                     lastSpeed = -1;
+               }else if(newVelocity.x < 0){
+                    lastSpeed = 1;
                }
                //GetComponent<ShipController> ().ModifyVelocity (newVelocity.x);
 

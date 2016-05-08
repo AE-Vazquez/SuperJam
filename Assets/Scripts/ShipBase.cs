@@ -70,6 +70,9 @@ public class ShipBase : MonoBehaviour {
         //Instanciar partculas explosion
         gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponent<ShipController>().enabled = false;
+        gameObject.GetComponent<WebController>().enabled = false;
+        gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
         this.enabled = false;
         manager.StopGame();
 
