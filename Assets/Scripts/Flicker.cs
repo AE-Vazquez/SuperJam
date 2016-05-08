@@ -20,7 +20,15 @@ public class Flicker : MonoBehaviour {
     public void StartFlickering()
     {
         times = fadeCount;
-        FadeOut();
+        if (!PlayerPrefs.GetString("gameMode").Equals("VR"))
+        {
+            FadeOut();
+        }
+        else
+        {
+            Invoke("StopInvulTime", times * fadeTime);
+        }
+
     }
 
     public void FadeIn()

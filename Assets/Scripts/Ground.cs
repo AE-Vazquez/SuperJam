@@ -26,7 +26,7 @@ public class Ground : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
+        transform.Translate(direction * manager.currentSpeed * Time.deltaTime,Space.World);
 	}
 
     public void ResetPosition()

@@ -61,9 +61,9 @@ public class TriangleExplosion : MonoBehaviour {
                 GO.AddComponent<MeshRenderer>().material = materials[submesh];
                 GO.AddComponent<MeshFilter>().mesh = mesh;
                 GO.AddComponent<BoxCollider>();
-                Vector3 explosionPos = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(0f, 0.5f), transform.position.z + Random.Range(-0.5f, 0.5f));
-                GO.AddComponent<Rigidbody>().AddExplosionForce(Random.Range(300, 700), explosionPos, 5);
-                GO.GetComponent<Rigidbody>().velocity += new Vector3(0, 50, GetComponentInParent<Obstacle>().GetCurrentSpeed());
+                Vector3 explosionPos = new Vector3(transform.position.x + Random.Range(-0.5f, 0.5f)+3, transform.position.y + Random.Range(0f, 0.5f)+1, transform.position.z + Random.Range(-0.5f, 0.5f)-1);
+                GO.AddComponent<Rigidbody>().AddExplosionForce(Random.Range(400, 800), explosionPos, 20);
+                GO.GetComponent<Rigidbody>().velocity += new Vector3(0, 10, -GetComponentInParent<Obstacle>().GetCurrentSpeed()/2);
                 Destroy(GO, 2 + Random.Range(0.0f, 2.0f));
             }
         }

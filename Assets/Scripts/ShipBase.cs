@@ -29,6 +29,10 @@ public class ShipBase : MonoBehaviour {
 
     public Vector3 shakeAmount= new Vector3(2.5f,1.5f,0);
 
+    private AudioSource audio;
+
+    public AudioClip[] audioClips;
+
     public float shakeTime = 2;
 
     [HideInInspector]
@@ -40,8 +44,9 @@ public class ShipBase : MonoBehaviour {
         manager = parallaxManager.GetComponent<ParallaxManager>();
         currentLives = maxLives;
         points = 0;
-	
-	}
+        audio = GetComponent<AudioSource>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,13 +60,15 @@ public class ShipBase : MonoBehaviour {
         {
             currentLives--;
 
+            audio.clip = audioClips[0];
+            audio.Play();
+
             if (currentLives <= 0)
             {
                 DestroyShip();
             }
             else
-            {
-                
+            {             
                 iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
                 StartInvulTime();
             }
@@ -75,12 +82,12 @@ public class ShipBase : MonoBehaviour {
         gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<ShipController>().enabled = false;
         gameObject.GetComponent<WebController>().enabled = false;
-        if (gameObject.transform.Find("mnave_interior") != null)
+        if (gameObject.transform.Find("nave_interior") != null)
         {
             gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
         }
-        this.enabled = false;
         dead = true;
+        
         manager.StopGame();
 
     }
@@ -109,7 +116,7 @@ public class ShipBase : MonoBehaviour {
     {
         if (!boosted && currentEnergy == maxEnergy)
         {
-            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = audioClips[1];
             audio.Play();
             boosted = true;
             manager.ChangeSpeed(boostSpeed);

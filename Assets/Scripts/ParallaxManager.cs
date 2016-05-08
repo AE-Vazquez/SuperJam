@@ -13,8 +13,6 @@ public class ParallaxManager : MonoBehaviour
 
     public float currentSpeed;
 
-    public float groundSize = 30;
-
     private Vector3 initialPos;
 
     public List<GameObject> obstaclesPrefabs;

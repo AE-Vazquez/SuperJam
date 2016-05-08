@@ -19,7 +19,7 @@ public class Obstacle : MonoBehaviour {
     {
         if (manager != null)
         {
-            transform.Translate(direction * manager.currentSpeed * Time.deltaTime);
+            transform.Translate(direction * manager.currentSpeed * Time.deltaTime,Space.World);
         }
     }
 

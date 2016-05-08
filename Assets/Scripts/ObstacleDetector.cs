@@ -20,12 +20,12 @@ public class ObstacleDetector : MonoBehaviour {
             ShipBase shipBase = col.GetComponent<ShipBase>();
             if (!shipBase.boosted)
             {
-                AudioSource audio = GetComponent<AudioSource>();
-                audio.Play();
                 shipBase.TakeHit();
             }
             else
             {
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.Play();
                 StartCoroutine(GetComponent<TriangleExplosion>().SplitMesh(true));
                 
             }

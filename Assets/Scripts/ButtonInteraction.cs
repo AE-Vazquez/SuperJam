@@ -42,7 +42,7 @@ public class ButtonInteraction : MonoBehaviour {
      }
 
      public void SetClick(){                    
-          Handheld.Vibrate();
+          //Handheld.Vibrate();
 
      }
 
