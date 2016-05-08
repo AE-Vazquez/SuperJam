@@ -39,9 +39,15 @@ public class ShipBase : MonoBehaviour {
     public bool dead = false;
 
 
+    public GameObject HudManager;
+    [HideInInspector]
+    public HUDManager hudManager;
+
+
     // Use this for initialization
     void Start () {
         manager = parallaxManager.GetComponent<ParallaxManager>();
+        hudManager = HudManager.GetComponent<HUDManager>();
         currentLives = maxLives;
         points = 0;
         audio = GetComponent<AudioSource>();
@@ -59,7 +65,7 @@ public class ShipBase : MonoBehaviour {
         if (!invulnerable)
         {
             currentLives--;
-
+            hudManager.UpdateLives((int)currentLives);
             audio.clip = audioClips[0];
             audio.Play();
 
@@ -103,7 +109,9 @@ public class ShipBase : MonoBehaviour {
         if (!dead)
         {
             points += star.pointReward;
+            hudManager.UpdatePoints((int)points);
             currentEnergy += star.energyReward;
+            hudManager.UpdateBooster(currentEnergy);
             if (currentEnergy > maxEnergy)
             {
                 currentEnergy = maxEnergy;
@@ -131,6 +139,7 @@ public class ShipBase : MonoBehaviour {
         {
             t += Time.deltaTime / boostDuration;
             currentEnergy = Mathf.Lerp(maxEnergy, 0, t);
+            hudManager.UpdateBooster(currentEnergy);
             yield return 0;
         }
         DeactivateBoost();
