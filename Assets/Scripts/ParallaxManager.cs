@@ -9,6 +9,8 @@ public class ParallaxManager : MonoBehaviour
 
     public float initialSpeed = 5;
 
+    public float maxSpeed = 20;
+
     public float currentSpeed;
 
     public float groundSize = 30;
@@ -66,7 +68,10 @@ public class ParallaxManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentSpeed += acceleration * Time.deltaTime;
+        if (currentSpeed < maxSpeed)
+        {
+            currentSpeed += acceleration * Time.deltaTime;
+        }
 
     }
 

@@ -36,7 +36,7 @@ public class TriangleExplosion : MonoBehaviour {
 
             int[] indices = M.GetTriangles(submesh);
 
-            for (int i = 0; i < indices.Length; i += 3) {
+            for (int i = 0; i < indices.Length; i += 6) {
                 Vector3[] newVerts = new Vector3[3];
                 Vector3[] newNormals = new Vector3[3];
                 Vector2[] newUvs = new Vector2[3];

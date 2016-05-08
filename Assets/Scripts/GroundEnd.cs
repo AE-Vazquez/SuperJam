@@ -22,7 +22,10 @@ public class GroundEnd : MonoBehaviour {
         
         if (col.GetComponent<Ground>() != null)
         {
-            shipBase.points++;
+            if (!shipBase.dead)
+            {
+                shipBase.points++;
+            }
             col.GetComponent<Ground>().ResetPosition();
             
         }

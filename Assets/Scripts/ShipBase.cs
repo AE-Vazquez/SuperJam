@@ -27,9 +27,12 @@ public class ShipBase : MonoBehaviour {
     public GameObject parallaxManager;
     private ParallaxManager manager;
 
-    public Vector3 shakeAmount= new Vector3(2,1,0);
+    public Vector3 shakeAmount= new Vector3(2.5f,1.5f,0);
 
     public float shakeTime = 2;
+
+    [HideInInspector]
+    public bool dead = false;
 
 
     // Use this for initialization
@@ -72,8 +75,12 @@ public class ShipBase : MonoBehaviour {
         gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<ShipController>().enabled = false;
         gameObject.GetComponent<WebController>().enabled = false;
-        gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
+        if (gameObject.transform.Find("mnave_interior") != null)
+        {
+            gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
+        }
         this.enabled = false;
+        dead = true;
         manager.StopGame();
 
     }
@@ -86,11 +93,14 @@ public class ShipBase : MonoBehaviour {
 
     public void StarCollected(Star star)
     {
-        points += star.pointReward;
-        currentEnergy += star.energyReward;
-        if(currentEnergy>maxEnergy)
+        if (!dead)
         {
-            currentEnergy = maxEnergy;
+            points += star.pointReward;
+            currentEnergy += star.energyReward;
+            if (currentEnergy > maxEnergy)
+            {
+                currentEnergy = maxEnergy;
+            }
         }
 
     }
