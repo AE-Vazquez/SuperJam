@@ -23,6 +23,13 @@ public class ButtonInteraction : MonoBehaviour {
                //transform.LookAt (gameObject.transform.parent);
 
           }
+          else
+        {
+            if(transform.parent.Find("nave")!= null)
+            {
+                transform.parent.Find("nave").GetComponent<Renderer>().enabled = false;
+            }
+        }
 	}
 	
 	// Update is called once per frame
