@@ -25,6 +25,7 @@ public class GroundEnd : MonoBehaviour {
             if (!shipBase.dead)
             {
                 shipBase.points++;
+                shipBase.hudManager.UpdatePoints((int)shipBase.points);
             }
             col.GetComponent<Ground>().ResetPosition();
             

@@ -29,19 +29,30 @@ public class ShipBase : MonoBehaviour {
 
     public Vector3 shakeAmount= new Vector3(2.5f,1.5f,0);
 
+    private AudioSource audio;
+
+    public AudioClip[] audioClips;
+
     public float shakeTime = 2;
 
     [HideInInspector]
     public bool dead = false;
 
 
+    public GameObject HudManager;
+    [HideInInspector]
+    public HUDManager hudManager;
+
+
     // Use this for initialization
     void Start () {
         manager = parallaxManager.GetComponent<ParallaxManager>();
+        hudManager = HudManager.GetComponent<HUDManager>();
         currentLives = maxLives;
         points = 0;
-	
-	}
+        audio = GetComponent<AudioSource>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -54,14 +65,16 @@ public class ShipBase : MonoBehaviour {
         if (!invulnerable)
         {
             currentLives--;
+            hudManager.UpdateLives((int)currentLives);
+            audio.clip = audioClips[0];
+            audio.Play();
 
             if (currentLives <= 0)
             {
                 DestroyShip();
             }
             else
-            {
-                
+            {             
                 iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
                 StartInvulTime();
             }
@@ -75,12 +88,12 @@ public class ShipBase : MonoBehaviour {
         gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<ShipController>().enabled = false;
         gameObject.GetComponent<WebController>().enabled = false;
-        if (gameObject.transform.Find("mnave_interior") != null)
+        if (gameObject.transform.Find("nave_interior") != null)
         {
             gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
         }
-        this.enabled = false;
         dead = true;
+        
         manager.StopGame();
 
     }
@@ -96,7 +109,9 @@ public class ShipBase : MonoBehaviour {
         if (!dead)
         {
             points += star.pointReward;
+            hudManager.UpdatePoints((int)points);
             currentEnergy += star.energyReward;
+            hudManager.UpdateBooster(currentEnergy);
             if (currentEnergy > maxEnergy)
             {
                 currentEnergy = maxEnergy;
@@ -109,7 +124,7 @@ public class ShipBase : MonoBehaviour {
     {
         if (!boosted && currentEnergy == maxEnergy)
         {
-            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = audioClips[1];
             audio.Play();
             boosted = true;
             manager.ChangeSpeed(boostSpeed);
@@ -124,6 +139,7 @@ public class ShipBase : MonoBehaviour {
         {
             t += Time.deltaTime / boostDuration;
             currentEnergy = Mathf.Lerp(maxEnergy, 0, t);
+            hudManager.UpdateBooster(currentEnergy);
             yield return 0;
         }
         DeactivateBoost();
