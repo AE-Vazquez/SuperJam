@@ -16,9 +16,13 @@ public class HUDManager : MonoBehaviour {
 
 
     public Canvas outsideCanvas;
+
+     public Canvas GameOverCanvas;
     // Use this for initialization
     void Start()
     {
+          GameOverCanvas.enabled = false;
+          
         if (insidePoints != null)
             insidePoints.text = "0";
         if (outsidePoints != null)
@@ -87,4 +91,7 @@ public class HUDManager : MonoBehaviour {
     }
 
 
+     public void SetGameOver(){
+          GameOverCanvas.enabled = true;
+     }
 }

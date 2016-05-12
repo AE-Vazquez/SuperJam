@@ -83,6 +83,9 @@ public class ShipBase : MonoBehaviour {
 
     public void DestroyShip()
     {
+        // Game Over
+          hudManager.SetGameOver();
+
         //Instanciar partculas explosion
         gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<Renderer>().enabled = false;

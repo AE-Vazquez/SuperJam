@@ -51,7 +51,7 @@ public class ButtonInteraction : MonoBehaviour {
 
      public void SetClick(){                    
           //Handheld.Vibrate();
-
+          Debug.Log("Test Click");
      }
 
      #region ICardboardGazeResponder implementation
@@ -72,7 +72,7 @@ public class ButtonInteraction : MonoBehaviour {
      /// and OnGazeExit.
      public void OnGazeTrigger() {
           Vibration.Vibrate ();
-
+          Debug.Log ("asdas");
      }
 
      #endregion
