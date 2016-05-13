@@ -75,7 +75,7 @@ public class ShipBase : MonoBehaviour {
             }
             else
             {             
-   //             iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
+                iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
                 StartInvulTime();
             }
         }
