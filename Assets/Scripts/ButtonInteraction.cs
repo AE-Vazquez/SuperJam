@@ -71,7 +71,7 @@ public class ButtonInteraction : MonoBehaviour {
      // Called when the Cardboard trigger is used, between OnGazeEnter
      /// and OnGazeExit.
      public void OnGazeTrigger() {
-          Vibration.Vibrate ();
+//          Vibration.Vibrate ();
           Debug.Log ("asdas");
      }
 

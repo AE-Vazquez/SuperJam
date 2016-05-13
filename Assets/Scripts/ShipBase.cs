@@ -75,7 +75,7 @@ public class ShipBase : MonoBehaviour {
             }
             else
             {             
-                iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
+   //             iTween.ShakePosition(gameObject, shakeAmount, shakeTime);
                 StartInvulTime();
             }
         }
@@ -94,7 +94,7 @@ public class ShipBase : MonoBehaviour {
         if (gameObject.transform.Find("nave_interior") != null)
         {
             gameObject.transform.Find("nave_interior").GetComponent<Renderer>().enabled = false;
-            gameObject.transform.Find("nave_interior").GetComponent<Canvas>().enabled = false;
+            if(gameObject.transform.Find("nave_interior").GetComponent<Canvas>())            gameObject.transform.Find("nave_interior").GetComponent<Canvas>().enabled = false;
 
         }
         if (gameObject.transform.Find("nave") != null)

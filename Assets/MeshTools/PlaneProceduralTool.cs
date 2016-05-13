@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+
 
 
 [ExecuteInEditMode] // Con esto podemos editar el objeto sin tener que ejecutar el juego
@@ -72,3 +74,4 @@ public class PlaneProceduralTool : Editor { // Importante EDITOR NO MONODEVELOP
 	
 	
 }
+#endif
